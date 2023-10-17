@@ -38,8 +38,8 @@ int main(int argc, char* argv[])
   gameState.map.x = 0;
   gameState.map.y = 0;
 
-  gameState.player.x = 220;
-  gameState.player.y = 140;
+  gameState.player.x = 0;
+  gameState.player.y = 300;
 
   SDL_Init(SDL_INIT_VIDEO);
 
@@ -71,6 +71,8 @@ int main(int argc, char* argv[])
     stop = processEvents(window, &gameState);
     doRender(render, &gameState);
 
+    printf("%d\n", gameState.player.y);
+
     SDL_Delay(10);
   }
 
@@ -90,6 +92,9 @@ int processEvents(SDL_Window* window, GameState* gameState)
   SDL_Event event;
   bool stop;
 
+  if (gameState->player.y < 300)
+    gameState->player.y += 2;
+  
   while (SDL_PollEvent(&event)) {
     switch (event.type) {
       case SDL_WINDOWEVENT_CLOSE:
@@ -104,6 +109,9 @@ int processEvents(SDL_Window* window, GameState* gameState)
           case SDLK_ESCAPE:
             stop = true;
             break;
+          case SDLK_UP:
+            gameState->player.y -= 100;
+            break;
         }
         break;
       case SDL_QUIT:
@@ -111,15 +119,6 @@ int processEvents(SDL_Window* window, GameState* gameState)
         break;
     }
 
-    const Uint8* state = SDL_GetKeyboardState(NULL);
-    if (state[SDL_SCANCODE_LEFT])
-      gameState->player.x -= 10;
-    if (state[SDL_SCANCODE_RIGHT])
-      gameState->player.x += 10;
-    if (state[SDL_SCANCODE_UP])
-      gameState->player.y -= 10;
-    if (state[SDL_SCANCODE_DOWN])
-      gameState->player.y += 10;
   }
   
   if (gameState->map.x == -480)
@@ -145,4 +144,11 @@ void doRender(SDL_Renderer* renderer, GameState* gameState)
   SDL_RenderCopy(renderer, gameState->player.player_texture, NULL, &playerRect);
 
   SDL_RenderPresent(renderer);
+}
+
+bool areColliding(GameState gameState){
+  if (gameState.player.x == gameState.map.x || gameState.player.y == gameState.map.y)
+    return true;
+  
+  return false;
 }
