@@ -1,1 +1,1 @@
-gcc .\main.c -I .\src\include -L .\src\lib\ -L .\src\bin\ -lmingw32 -lSDL2main -lSDL2 -lSDL2_image
+gcc .\main.c -I .\SDL2\include -L .\SDL2\lib\ -lmingw32 -lSDL2main -lSDL2 -lSDL2_image
