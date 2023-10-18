@@ -6,7 +6,7 @@ Foi usado:
 
 - C
 - [SDL2](https://github.com/libsdl-org/SDL)
-- [SDL_image](https://github.com/libsdl-org/SDL_image)https://github.com/libsdl-org/SDL_image
-- [SDL_mixer](https://github.com/libsdl-org/SDL_mixer)https://github.com/libsdl-org/SDL_mixer
+- [SDL_image](https://github.com/libsdl-org/SDL_image)
+- [SDL_mixer](https://github.com/libsdl-org/SDL_mixer)
 
   A IDE utilizada foi o VsCode no Windowns.
