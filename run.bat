@@ -1,1 +1,1 @@
-gcc .\main.c -I .\SDL2\include -L .\SDL2\lib\ -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer
+gcc .\main.c -o v1.0.0-alpha.exe -I .\SDL2\include -L .\SDL2\lib\ -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer
