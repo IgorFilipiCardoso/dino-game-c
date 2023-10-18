@@ -1,5 +1,6 @@
 #include ".\SDL2\include\SDL2\SDL.h"
 #include ".\SDL2\include\SDL2\SDL_image.h"
+#include ".\SDL2\include\SDL2\SDL_mixer.h"
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -27,12 +28,19 @@ typedef struct {
 typedef struct {
   int x, y;
   int height, width;
+  SDL_Texture* grass_texture;
+} Grass;
+
+typedef struct {
+  int x, y;
+  int height, width;
   SDL_Texture* map_texture;
 } Map;
 
 typedef struct {
   Player player;
   Cactus cactus;
+  Grass grass;
   Map map;
 } GameState;
 
@@ -44,6 +52,10 @@ void player_render(GameState* gameState, SDL_Renderer* renderer);
 
 int main(int argc, char* argv[])
 {
+
+  SDL_Init(SDL_INIT_VIDEO);
+  Mix_Init(MIX_INIT_MP3);
+
   bool stop = false;
 
   SDL_Window* window = NULL;
@@ -56,8 +68,9 @@ int main(int argc, char* argv[])
 
   gameState.map.x = 0;
   gameState.map.y = 0;
-  gameState.map.height = HEIGHT * 2;
+  gameState.map.height = HEIGHT;
   gameState.map.width = WIDTH * 2;
+
 
   gameState.player.x = 25;
   gameState.player.y = 300;
@@ -66,12 +79,23 @@ int main(int argc, char* argv[])
   gameState.player.velocity = 0;
   gameState.player.step = false;
 
+  gameState.grass.y = gameState.player.height + gameState.player.y;
+  gameState.grass.x = 0;
+  gameState.grass.height = 150;
+  gameState.grass.width = WIDTH * 2;
+
+
   gameState.cactus.x = WIDTH;
   gameState.cactus.y = 300;
   gameState.cactus.width = 54;
   gameState.cactus.height = 64;
 
-  SDL_Init(SDL_INIT_VIDEO);
+  Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
+
+  Mix_Music* main_song = Mix_LoadMUS("./audios/Minecraft - 128.mp3");
+  Mix_Chunk* death_sound = Mix_LoadWAV("./audios/villager_damage.mp3");
+
+  Mix_PlayMusic(main_song, -1);
 
   window = SDL_CreateWindow("Jogo mais foda do mes", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, 0);
   render = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
@@ -79,8 +103,8 @@ int main(int argc, char* argv[])
   processTextures(render, &gameState.player.player_texture1, "./images/t_rex1.png");
   processTextures(render, &gameState.player.player_texture2, "./images/t_rex2.png");
   processTextures(render, &gameState.player.player_texture3, "./images/t_rex3.png");
-
-  processTextures(render, &gameState.map.map_texture, "./images/map.png");
+  processTextures(render, &gameState.grass.grass_texture, "./images/grass.png");
+  processTextures(render, &gameState.map.map_texture, "./images/map_loop2.png");
   processTextures(render, &gameState.cactus.cactus_texture, "./images/cactus.png");
 
 
@@ -90,10 +114,14 @@ int main(int argc, char* argv[])
 
     if (areColliding(gameState)) {
       printf("Relou\n");
+      stop = true;
     }
 
     SDL_Delay(10);
   }
+
+  Mix_PlayChannel(-1, death_sound, 0);
+  SDL_Delay(1200);
 
   SDL_DestroyTexture(gameState.map.map_texture);
   SDL_DestroyTexture(gameState.player.player_texture1);
@@ -185,6 +213,11 @@ void doRender(SDL_Renderer* renderer, GameState* gameState)
 
   gameState->map.x -= 4;
 
+  if (gameState->grass.x < -gameState->grass.width / 2)
+    gameState->grass.x = 0;
+
+  gameState->grass.x -= 4;
+
   SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
 
   SDL_RenderClear(renderer);
@@ -194,8 +227,8 @@ void doRender(SDL_Renderer* renderer, GameState* gameState)
   SDL_Rect mapRect = { gameState->map.x, gameState->map.y, gameState->map.width, gameState->map.height };
   SDL_RenderCopy(renderer, gameState->map.map_texture, NULL, &mapRect);
 
-  SDL_Rect rect = { 0, gameState->cactus.y + gameState->cactus.height, WIDTH, 300 / 2 };
-  SDL_RenderFillRect(renderer, &rect);
+  SDL_Rect grassRect = { gameState->grass.x, gameState->grass.y, gameState->grass.width, gameState->grass.height };
+  SDL_RenderCopy(renderer, gameState->grass.grass_texture, NULL, &grassRect);
 
   SDL_Rect cactusRect = { gameState->cactus.x, gameState->cactus.y, gameState->cactus.width, gameState->cactus.height };
   SDL_RenderCopy(renderer, gameState->cactus.cactus_texture, NULL, &cactusRect);
