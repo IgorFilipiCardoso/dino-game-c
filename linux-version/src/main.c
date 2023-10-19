@@ -23,11 +23,7 @@ int main(int argc, char *argv[])
         stop = process_events(&the_game, window, renderer);
         move_everithing(&the_game);
         if (are_colliding(&the_game))
-        {
             stop = true;
-        }
-
-    
     }
 
     destroy_textures(&the_game);
