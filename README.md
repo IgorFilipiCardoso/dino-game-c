@@ -32,12 +32,14 @@ Apos ter feito o download do SDL2, SDL_image, SDL_mixer:
 Para windowns:
 
 -Digite o comando no terminal:
-- gcc ./main.c -o my_game.exe -I ./SDL2/include -L ./SDL2/lib/ -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer
+- gcc ./main.c -o dino-game-win.exe -I ./SDL2/include -L ./SDL2/lib/ -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer
+- gcc ./src/main.c ./src/include/*c -o dino-game-win.exe -I ./SDL2/include -L ./SDL2/lib/ -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer
+
 
 Para Linux (Ubunto):
 
 -Digite o comando no terminal:
-- gcc -o my_game ./main.c -lSDL2 -lSDL2_image -lSDL2_mixer
-- gcc -o my_game ./src/main.c ./src/include/*c  -lSDL2 -lSDL2_image -lSDL2_mixer
+- gcc -o dino-game-linux ./main.c -lSDL2 -lSDL2_image -lSDL2_mixer
+- gcc -o dino-game-linux ./src/main.c ./src/include/*c  -lSDL2 -lSDL2_image -lSDL2_mixer
 
 A IDE utilizada foi o VsCode no Windowns.
