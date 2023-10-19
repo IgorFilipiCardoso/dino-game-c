@@ -38,5 +38,6 @@ Para Linux (Ubunto):
 
 -Digite o comando no terminal:
 - gcc -o my_game ./main.c -lSDL2 -lSDL2_image -lSDL2_mixer
+- gcc -o my_game ./src/main.c ./src/include/*c  -lSDL2 -lSDL2_image -lSDL2_mixer
 
 A IDE utilizada foi o VsCode no Windowns.
