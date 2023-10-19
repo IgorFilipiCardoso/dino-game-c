@@ -8,4 +8,4 @@
 #define WIDTH 640
 #define HEIGHT 480
 #define GRAVITY 0.25
-#define DELAY 10
+#define VELOCITY 4

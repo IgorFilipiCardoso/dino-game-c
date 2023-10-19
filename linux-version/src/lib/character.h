@@ -3,7 +3,7 @@
 typedef struct character_type *Character;
 
 // Cria o personagem
-bool init_character(Character *character, int position_x, int position_y, int width, int height);
+bool character_init(Character *character, int position_x, int position_y, int width, int height);
 
 // Faz com que o persongem pule, retorna um bool, indicando se pulou ou nao.
 bool jump(Character* character, SDL_Renderer* renderer);
@@ -17,7 +17,9 @@ void render_character_step(SDL_Renderer* renderer, Character* character);
 // Processa uma textura para o personagem
 void set_character_textures(Character* character, SDL_Renderer* renderer, char *src_texture1, char* src_texture2, char* src_texture3);
 
-// Retorna por referencia, quatro calculos de posisao.
-void get_colision(Character character, int *x1, int *x2, int *y1, int *y2);
+// Retorna por referencia, quatro calculos de posisao para saber a colisao do personagem com outra coisa.
+void get_character_colision(Character character, double *x1, double *x2, double *y1, double *y2);
 
+// Destroi a textura para liberar memoria
+void destroy_character_texture(Character* character);
 
