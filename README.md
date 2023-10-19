@@ -12,10 +12,10 @@ Foi usado:
 -> Como baixar SDL2 e suas bibliotecas?
 
   Para Windowns:
-  -Baixe essas versoes: SDL2-devel-2.28.4-mingw.zip / SDL2_image-devel-2.6.3-mingw.zip / SDL2_mixer-devel-2.6.3-mingw.zip
-  -Apos baixar todos, extraia, e mescle a pasta 'lib' e 'include' do SDL2_image e SDL2_mixer na pasta do SDL2.
-  -Pegue as pastas 'lib' e 'include' e mova para uma pasta SDL2.
-  -Entre nas pastas 'bin' e pegue as DLLs, mova as DLLs para a pasta raiz do seu projeto.
+  - Baixe essas versoes: SDL2-devel-2.28.4-mingw.zip / SDL2_image-devel-2.6.3-mingw.zip / SDL2_mixer-devel-2.6.3-mingw.zip
+  - Apos baixar todos, extraia, e mescle a pasta 'lib' e 'include' do SDL2_image e SDL2_mixer na pasta do SDL2.
+  - Pegue as pastas 'lib' e 'include' e mova para uma pasta SDL2.
+  - Entre nas pastas 'bin' e pegue as DLLs, mova as DLLs para a pasta raiz do seu projeto.
 
 
   Para Linux:
