@@ -40,6 +40,6 @@ Para Linux (Ubunto):
 
 -Digite o comando no terminal:
 
-- gcc -o dino-game-linux ./src/main.c ./src/include/*c -I ./SDL2/include -L ./SDL2/lib/ -ldl -lSDL2 -lSDL2_image -lSDL2_mixer
+- gcc -o dino-game-linux ./src/main.c ./src/include/*c -ldl -lSDL2 -lSDL2_image -lSDL2_mixer
 
 A IDE utilizada foi o VsCode no Windowns.
