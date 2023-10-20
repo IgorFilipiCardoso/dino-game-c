@@ -11,9 +11,8 @@ struct character_type
   double velocity;
 };
 
-void render_character(SDL_Renderer *renderer, Character *character, SDL_Texture **texture);
+void render_character(Character character, SDL_Renderer *renderer, SDL_Texture **texture);
 void set_one_texture(SDL_Texture **texture, SDL_Renderer *renderer, char *src);
-
 
 bool character_init(Character *character, int position_x, int position_y, int width, int height)
 {
@@ -36,61 +35,66 @@ bool character_init(Character *character, int position_x, int position_y, int wi
 }
 
 // Faz com que o persongem pule, retorna um bool, indicando se pulou ou nao.
-bool jump(Character *character, SDL_Renderer *renderer)
+bool jump(Character character, SDL_Renderer *renderer)
 {
-  (*character)->y -= 10;
-  render_character_step(renderer, character);
+  character->y -= 10;
 }
+
+bool can_jump(Character character)
+{
+  return character->y == 300 ? true : false;
+}
+
 // Cria um especie de gravidade, onde o personagem e puxado para baixo.
-void gravity(Character *character)
+void gravity(Character character)
 {
   // Gravidade
-  if ((*character)->y < 300)
+  if (character->y < 300)
   {
-    (*character)->velocity += GRAVITY;
-    (*character)->y += (*character)->velocity;
-    if ((*character)->y > 300)
-      (*character)->y = 300;
+    character->velocity += GRAVITY;
+    character->y += character->velocity;
+    if (character->y > 300)
+      character->y = 300;
   }
 
-  if ((*character)->y == 300)
-    (*character)->velocity = 0;
+  if (character->y == 300)
+    character->velocity = 0;
 }
 
 // Renderiza o personagem na tela
-void render_character_step(SDL_Renderer *renderer, Character *character)
+void render_character_step(Character character, SDL_Renderer *renderer)
 {
-  if ((*character)->y == 300)
+  if (character->y == 300)
   {
-    if ((*character)->step)
+    if (character->step)
     {
-      render_character(renderer, character, &((*character)->texture1));
-      (*character)->step = false;
+      render_character(character, renderer, &(character->texture1));
+      character->step = false;
     }
     else
     {
-      render_character(renderer, character, &(*character)->texture2);
-      (*character)->step = true;
+      render_character(character, renderer, &character->texture2);
+      character->step = true;
     }
   }
   else
   {
-    render_character(renderer, character, &((*character)->texture1));
+    render_character(character, renderer, &(character->texture1));
   }
 }
 
-void render_character(SDL_Renderer *renderer, Character *character, SDL_Texture **texture)
+void render_character(Character character, SDL_Renderer *renderer, SDL_Texture **texture)
 {
-  SDL_Rect characterRect = {(*character)->x, (*character)->y, (*character)->width, (*character)->height};
+  SDL_Rect characterRect = {character->x, character->y, character->width, character->height};
   SDL_RenderCopy(renderer, *texture, NULL, &characterRect);
 }
 
 // Processa uma textura para o personagem
-void set_character_textures(Character *character, SDL_Renderer *renderer, char *src_texture1, char *src_texture2, char *src_texture3)
+void set_character_textures(Character character, SDL_Renderer *renderer, char *src_texture1, char *src_texture2, char *src_texture3)
 {
-  set_one_texture(&((*character)->texture1), renderer, src_texture1);
-  set_one_texture(&((*character)->texture2), renderer, src_texture2);
-  set_one_texture(&((*character)->texture3), renderer, src_texture3);
+  set_one_texture(&(character->texture1), renderer, src_texture1);
+  set_one_texture(&(character->texture2), renderer, src_texture2);
+  set_one_texture(&(character->texture3), renderer, src_texture3);
 }
 
 void set_one_texture(SDL_Texture **texture, SDL_Renderer *renderer, char *src)
@@ -116,9 +120,9 @@ void get_character_colision(Character character, double *x1, double *x2, double 
   *y2 = character->y - character->height / 2;
 }
 
-void destroy_character_texture(Character *character)
+void destroy_character_texture(Character character)
 {
-  SDL_DestroyTexture((*character)->texture1);
-  SDL_DestroyTexture((*character)->texture2);
-  SDL_DestroyTexture((*character)->texture3);
+  SDL_DestroyTexture(character->texture1);
+  SDL_DestroyTexture(character->texture2);
+  SDL_DestroyTexture(character->texture3);
 }

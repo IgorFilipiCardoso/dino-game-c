@@ -6,13 +6,13 @@ typedef struct ground_type *Ground;
 bool ground_init(Ground* ground, int position_x, int position_y, int height, int width);
 
 // Coloca a textura do chao no chao.
-void set_ground_texture(Ground* ground, SDL_Renderer* renderer, char* src);
+void set_ground_texture(Ground ground, SDL_Renderer* renderer, char* src);
 
 // Move o chao, da direita para a esquerda.
-void move_ground(Ground* ground);
+void move_ground(Ground ground);
 
 // Coloca o chao na fila de espera para renderisar
-void render_ground(SDL_Renderer* renderer, Ground ground);
+void render_ground(Ground ground, SDL_Renderer* renderer);
 
 // Destroi a textura para liberar memoria
-void destroy_ground_texture(Ground* ground);
+void destroy_ground_texture(Ground ground);
