@@ -12,7 +12,7 @@ void set_ground_texture(Ground* ground, SDL_Renderer* renderer, char* src);
 void move_ground(Ground* ground);
 
 // Coloca o chao na fila de espera para renderisar
-void render_ground(SDL_Renderer* renderer, Ground ground);
+void render_ground(SDL_Renderer* renderer, Ground* ground);
 
 // Destroi a textura para liberar memoria
 void destroy_ground_texture(Ground* ground);

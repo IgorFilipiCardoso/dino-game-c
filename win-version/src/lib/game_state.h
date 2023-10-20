@@ -19,7 +19,7 @@ void move_everithing(Game_state *game_state);
 void game_render(Game_state* game_state, SDL_Renderer* renderer);
 
 // Processa os eventos, como cliques e entradas do teclado. Se retornar true indica que o jogo deve parar.
-bool process_events(Game_state* game_state, SDL_Window *window, SDL_Renderer* renderer);
+bool process_events(Game_state* game_state, SDL_Window *window, SDL_Renderer* renderer, SDL_Event event);
 
 // Retorna se o personagem e se algum obstaculo colidiu.
 bool are_colliding(Game_state* game_state);

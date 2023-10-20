@@ -11,8 +11,10 @@ bool map_init(Map *map, int position_x, int position_y, int width, int height)
 {
     (*map) = malloc(sizeof(Map));
 
+
     if ((*map) != NULL)
     {
+        printf("Banada do Mapa ----\n");
         (*map)->height = height;
         (*map)->width = width;
         (*map)->x = position_x;
@@ -49,10 +51,10 @@ void move_map(Map *map)
     (*map)->x -= VELOCITY;
 }
 
-void render_map(Map map, SDL_Renderer* renderer)
+void render_map(Map* map, SDL_Renderer* renderer)
 {
-    SDL_Rect mapRect = {map->x, map->y, map->width, map->height};
-    SDL_RenderCopy(renderer, map->texture, NULL, &mapRect);
+    SDL_Rect mapRect = {(*map)->x, (*map)->y, (*map)->width, (*map)->height};
+    SDL_RenderCopy(renderer, (*map)->texture, NULL, &mapRect);
 }
 
 void destroy_map_texture(Map* map){

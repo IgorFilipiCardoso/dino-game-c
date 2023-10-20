@@ -11,8 +11,10 @@ bool ground_init(Ground *ground, int position_x, int position_y, int height, int
 {
   (*ground) = malloc(sizeof(Ground));
 
+
   if ((*ground) != NULL)
   {
+    printf("Banada do Chao ----\n");
     (*ground)->y = position_y;
     (*ground)->x = position_x;
     (*ground)->height = height;
@@ -32,10 +34,10 @@ void move_ground(Ground *ground)
   (*ground)->x -= VELOCITY;
 }
 
-void render_ground(SDL_Renderer *renderer, Ground ground)
+void render_ground(SDL_Renderer *renderer, Ground* ground)
 {
-  SDL_Rect grassRect = {ground->x, ground->y, ground->width, ground->height};
-  SDL_RenderCopy(renderer, ground->texture, NULL, &grassRect);
+  SDL_Rect grassRect = {(*ground)->x, (*ground)->y, (*ground)->width, (*ground)->height};
+  SDL_RenderCopy(renderer, (*ground)->texture, NULL, &grassRect);
 }
 
 void set_ground_texture(Ground *ground, SDL_Renderer *renderer, char *src)

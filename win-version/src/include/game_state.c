@@ -11,13 +11,21 @@ struct game_state_type
 
 bool game_state_init(Game_state *game_state, int delay)
 {
+
     (*game_state) = malloc(sizeof(Game_state));
 
-    map_init(&(*game_state)->map, 0, 0, WIDTH * 2, HEIGHT);
-    ground_init(&(*game_state)->ground, 0, 364, 150, WIDTH * 2);
-    obstacle_init(&(*game_state)->obstacle_cactus, WIDTH, 300, 54, 64);
-    character_init(&(*game_state)->character, 25, 300, 64, 60);
-    (*game_state)->delay = delay;
+    if ((*game_state) != NULL)
+    {
+        map_init(&(*game_state)->map, 0, 0, WIDTH * 2, HEIGHT);
+        ground_init(&(*game_state)->ground, 0, 364, 150, WIDTH * 2);
+        obstacle_init(&(*game_state)->obstacle_cactus, WIDTH, 300, 54, 64);
+        character_init(&(*game_state)->character, 25, 300, 64, 60);
+        (*game_state)->delay = delay;
+
+        return true;
+    }
+
+    return false;
 }
 
 void game_load_textures(Game_state *game_state, SDL_Renderer *renderer)
@@ -38,22 +46,23 @@ void move_everithing(Game_state *game_state)
 
 void game_render(Game_state *game_state, SDL_Renderer *renderer)
 {
+    
     SDL_RenderClear(renderer);
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
-    render_map(((*game_state)->map), renderer);
-    render_ground(renderer, ((*game_state)->ground));
+    render_map(&((*game_state)->map), renderer);
+    render_ground(renderer, &((*game_state)->ground));
     render_obstacle(renderer, &((*game_state)->obstacle_cactus));
     render_character_step(renderer, &((*game_state)->character));
+    // printf("render step \t");
 
     SDL_RenderPresent(renderer);
 
     SDL_Delay((*game_state)->delay);
 }
 
-bool process_events(Game_state *game_state, SDL_Window *window, SDL_Renderer *renderer)
+bool process_events(Game_state *game_state, SDL_Window *window, SDL_Renderer *renderer, SDL_Event event)
 {
-    SDL_Event event;
     bool stop = false;
 
     while (SDL_PollEvent(&event))
@@ -61,12 +70,12 @@ bool process_events(Game_state *game_state, SDL_Window *window, SDL_Renderer *re
         switch (event.type)
         {
         case SDL_WINDOWEVENT_CLOSE:
-            if (window)
-            {
-                SDL_DestroyWindow(window);
-                window = NULL;
-                stop = true;
-            }
+            // if (window)
+            // {
+            //     SDL_DestroyWindow(window);
+            //     window = NULL;
+            //     stop = true;
+            // }
             break;
         case SDL_KEYDOWN:
             switch (event.key.keysym.sym)

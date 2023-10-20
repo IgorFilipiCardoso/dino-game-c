@@ -20,8 +20,10 @@ bool character_init(Character *character, int position_x, int position_y, int wi
 
   (*character) = malloc(sizeof(Character));
 
+
   if ((*character) != NULL)
   {
+    printf("Banada do Personagem ----\n");
     (*character)->x = position_x;
     (*character)->y = position_y;
     (*character)->height = height;

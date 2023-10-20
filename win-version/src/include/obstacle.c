@@ -12,8 +12,10 @@ bool obstacle_init(Obstacle *obstacle, int position_x, int position_y, int width
 
   (*obstacle) = malloc(sizeof(Obstacle));
 
+
   if ((*obstacle) != NULL)
   {
+     printf("Banada do obstaculo ----\n");
     (*obstacle)->x = position_x;
     (*obstacle)->y = position_y;
     (*obstacle)->height = height;
