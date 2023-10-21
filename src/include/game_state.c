@@ -81,7 +81,6 @@ bool process_events(Game_state game_state, SDL_Window* window, SDL_Renderer* ren
             break;
           case SDLK_UP:
             if (can_jump(game_state->character)) {
-              printf("%d\n", height/24);
               for (int i = 0; i < (height/24); i++) {
                 jump((game_state->character));
                 move_everithing(game_state, window);

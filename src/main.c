@@ -24,7 +24,6 @@ int main(int argc, char* argv[])
     game_render(the_game, renderer, window);
 
     if (are_colliding(the_game))
-      printf("Relou\n");
       stop = true;
   } 
 
