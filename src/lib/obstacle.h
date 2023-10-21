@@ -11,6 +11,10 @@ void render_obstacle(Obstacle obstacle, SDL_Renderer *renderer,  SDL_Window* win
 // Move o objeto da direita para esquerda.
 void move_obstacle(Obstacle obstacle, SDL_Window* window);
 
+bool has_passed(Obstacle obstacle);
+
+void set_passed(Obstacle obstacle);
+
 // Coloca as texturas do obstaculo, recebendo o obstaculo, o renderer e o caminho da imagem, em string.
 void set_obstacle_textures(Obstacle obstacle, SDL_Renderer *renderer, char* src);
 

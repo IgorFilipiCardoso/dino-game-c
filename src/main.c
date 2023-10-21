@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
   while (!stop) {
     
     stop = process_events(the_game, window, renderer);
-    move_everithing(the_game, window);
+    move_everything(the_game, window);
     game_render(the_game, renderer, window);
 
     if (are_colliding(the_game))

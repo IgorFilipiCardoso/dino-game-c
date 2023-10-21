@@ -4,6 +4,7 @@ struct obstacle_type {
   int x, y;
   int height, width;
   SDL_Texture* texture;
+  bool has_passed;
 };
 
 bool obstacle_init(Obstacle* obstacle, int position_x, int position_y, int width, int height)
@@ -16,6 +17,7 @@ bool obstacle_init(Obstacle* obstacle, int position_x, int position_y, int width
     (*obstacle)->y = position_y;
     (*obstacle)->height = height;
     (*obstacle)->width = width;
+    (*obstacle)->width = false;
 
     return true;
   }
@@ -27,8 +29,8 @@ void render_obstacle(Obstacle obstacle, SDL_Renderer* renderer, SDL_Window* wind
 {
   SDL_GL_GetDrawableSize(window, &obstacle->width, &obstacle->height);
 
-  obstacle->width = (obstacle->height*0.125);
-  obstacle->height = (obstacle->height*0.125);
+  obstacle->width = (obstacle->height * 0.125);
+  obstacle->height = (obstacle->height * 0.125);
 
   obstacle->y = obstacle->height * 5;
 
@@ -42,10 +44,21 @@ void move_obstacle(Obstacle obstacle, SDL_Window* window)
 
   SDL_GL_GetDrawableSize(window, &width, &height);
 
-  if (obstacle->x < -obstacle->width)
+  if (obstacle->x < -obstacle->width) {
     obstacle->x = width;
+    (obstacle)->has_passed = true;
+  } else {
+    obstacle->x -= VELOCITY;
+  }
+  
+}
 
-  obstacle->x -= VELOCITY;
+bool has_passed(Obstacle obstacle){
+  return obstacle->has_passed;
+}
+
+void set_passed(Obstacle obstacle){
+  obstacle->has_passed = false;
 }
 
 void set_obstacle_textures(Obstacle obstacle, SDL_Renderer* renderer, char* src)

@@ -3,6 +3,7 @@
 #include "./ground.h"
 #include "./map.h"
 #include "./obstacle.h"
+#include "./queue.h"
 
 typedef struct game_state_type *Game_state;
 
@@ -13,7 +14,7 @@ bool game_state_init(Game_state* game_state, int delay);
 void game_load_textures(Game_state game_state, SDL_Renderer* renderer);
 
 // Move, de acordo com a velocidade, todos da esquerda para direita.
-void move_everithing(Game_state game_state, SDL_Window* window);
+void move_everything(Game_state game_state, SDL_Window* window);
 
 // Renderiza tudo na tela, 1 frame.
 void game_render(Game_state game_state, SDL_Renderer* renderer, SDL_Window *window);
