@@ -6,7 +6,7 @@ typedef struct character_type *Character;
 bool character_init(Character *character, int position_x, int position_y, int width, int height);
 
 // Faz com que o persongem pule, retorna um bool, indicando se pulou ou nao.
-bool jump(Character character, SDL_Renderer* renderer);
+void jump(Character character);
 
 // Retorna se o personame pode realizar o pulo
 bool can_jump(Character character);
@@ -15,7 +15,7 @@ bool can_jump(Character character);
 void gravity(Character character);
 
 // Renderiza o personagem na tela
-void render_character_step(Character character, SDL_Renderer* renderer);
+void render_character_step(Character character, SDL_Renderer* renderer,  SDL_Window* window);
 
 // Processa uma textura para o personagem
 void set_character_textures(Character character, SDL_Renderer* renderer, char *src_texture1, char* src_texture2, char* src_texture3);

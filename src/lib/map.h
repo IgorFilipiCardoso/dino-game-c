@@ -12,7 +12,7 @@ void set_map_textures(Map map, SDL_Renderer* renderer, char* src);
 void move_map(Map map);
 
 // Coloca o mapa para o renderer, ficando ao aguardo de mostrar na tela.
-void render_map(Map map, SDL_Renderer* renderer);
+void render_map(Map map, SDL_Renderer* renderer, SDL_Window *window);
 
 // Destroi a textura para liberar memoria
 void destroy_map_texture(Map map);

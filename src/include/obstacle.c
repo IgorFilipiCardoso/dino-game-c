@@ -9,8 +9,7 @@ struct obstacle_type {
 bool obstacle_init(Obstacle* obstacle, int position_x, int position_y, int width, int height)
 {
 
-  (*obstacle) = malloc(sizeof(Obstacle));
-
+  (*obstacle) = malloc(sizeof(struct obstacle_type));
 
   if ((*obstacle) != NULL) {
     (*obstacle)->x = position_x;
@@ -24,16 +23,27 @@ bool obstacle_init(Obstacle* obstacle, int position_x, int position_y, int width
   return false;
 }
 
-void render_obstacle(Obstacle obstacle, SDL_Renderer* renderer)
+void render_obstacle(Obstacle obstacle, SDL_Renderer* renderer, SDL_Window* window)
 {
+  SDL_GL_GetDrawableSize(window, &obstacle->width, &obstacle->height);
+
+  obstacle->width = (obstacle->height*0.125);
+  obstacle->height = (obstacle->height*0.125);
+
+  obstacle->y = obstacle->height * 5;
+
   SDL_Rect obstacleRect = { obstacle->x, obstacle->y, obstacle->width, obstacle->height };
   SDL_RenderCopy(renderer, obstacle->texture, NULL, &obstacleRect);
 }
 
-void move_obstacle(Obstacle obstacle)
+void move_obstacle(Obstacle obstacle, SDL_Window* window)
 {
+  int width, height;
+
+  SDL_GL_GetDrawableSize(window, &width, &height);
+
   if (obstacle->x < -obstacle->width)
-    obstacle->x = WIDTH;
+    obstacle->x = width;
 
   obstacle->x -= VELOCITY;
 }

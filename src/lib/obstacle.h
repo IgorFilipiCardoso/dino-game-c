@@ -6,10 +6,10 @@ typedef struct obstacle_type *Obstacle;
 bool obstacle_init(Obstacle *obstacle, int position_x, int position_y, int width, int height);
 
 // Coloca o obstaculo no renderer.
-void render_obstacle(Obstacle obstacle, SDL_Renderer *renderer);
+void render_obstacle(Obstacle obstacle, SDL_Renderer *renderer,  SDL_Window* window);
 
 // Move o objeto da direita para esquerda.
-void move_obstacle(Obstacle obstacle);
+void move_obstacle(Obstacle obstacle, SDL_Window* window);
 
 // Coloca as texturas do obstaculo, recebendo o obstaculo, o renderer e o caminho da imagem, em string.
 void set_obstacle_textures(Obstacle obstacle, SDL_Renderer *renderer, char* src);

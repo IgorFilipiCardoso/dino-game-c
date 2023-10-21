@@ -8,8 +8,7 @@ struct ground_type {
 
 bool ground_init(Ground* ground, int position_x, int position_y, int height, int width)
 {
-  (*ground) = malloc(sizeof(Ground));
-
+  (*ground) = malloc(sizeof(struct ground_type));
 
   if ((*ground) != NULL) {
     (*ground)->y = position_y;
@@ -25,15 +24,16 @@ bool ground_init(Ground* ground, int position_x, int position_y, int height, int
 
 void move_ground(Ground ground)
 {
-  if (ground->x < -ground->width / 2)
+  if (ground->x < -ground->width)
     ground->x = 0;
 
   ground->x -= VELOCITY;
 }
 
-void render_ground(Ground ground, SDL_Renderer* renderer)
+void render_ground(Ground ground, SDL_Renderer* renderer, SDL_Window* window)
 {
-  SDL_Rect grassRect = { ground->x, ground->y, ground->width, ground->height };
+  SDL_GL_GetDrawableSize(window, &ground->width, &ground->height);
+  SDL_Rect grassRect = { ground->x, (ground->height * 0.75), ground->width*2, (ground->height * 0.315)};
   SDL_RenderCopy(renderer, ground->texture, NULL, &grassRect);
 }
 

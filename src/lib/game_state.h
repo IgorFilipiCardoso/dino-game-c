@@ -13,10 +13,10 @@ bool game_state_init(Game_state* game_state, int delay);
 void game_load_textures(Game_state game_state, SDL_Renderer* renderer);
 
 // Move, de acordo com a velocidade, todos da esquerda para direita.
-void move_everithing(Game_state game_state);
+void move_everithing(Game_state game_state, SDL_Window* window);
 
 // Renderiza tudo na tela, 1 frame.
-void game_render(Game_state game_state, SDL_Renderer* renderer);
+void game_render(Game_state game_state, SDL_Renderer* renderer, SDL_Window *window);
 
 // Processa os eventos, como cliques e entradas do teclado. Se retornar true indica que o jogo deve parar.
 bool process_events(Game_state game_state, SDL_Window *window, SDL_Renderer* renderer);
