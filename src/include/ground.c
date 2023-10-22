@@ -33,7 +33,7 @@ void move_ground(Ground ground)
 void render_ground(Ground ground, SDL_Renderer* renderer, SDL_Window* window)
 {
   SDL_GL_GetDrawableSize(window, &ground->width, &ground->height);
-  SDL_Rect grassRect = { ground->x, (ground->height * 0.75), ground->width*2, (ground->height * 0.315)};
+  SDL_Rect grassRect = { ground->x, (ground->height * 0.75), ground->width * 2, (ground->height * 0.315) };
   SDL_RenderCopy(renderer, ground->texture, NULL, &grassRect);
 }
 

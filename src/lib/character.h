@@ -6,12 +6,10 @@ typedef struct character_type *Character;
 bool character_init(Character *character, int position_x, int position_y, int width, int height);
 
 // Faz com que o persongem pule, retorna um bool, indicando se pulou ou nao.
-void jump(Character character);
+void jump(Character character, int height);
 
 // Retorna se o personame pode realizar o pulo
 bool can_jump(Character character);
-
-void fall(Character character);
 
 // Cria um especie de gravidade, onde o personagem e puxado para baixo.
 void gravity(Character character);

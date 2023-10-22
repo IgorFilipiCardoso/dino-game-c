@@ -4,6 +4,7 @@
 #include "./map.h"
 #include "./obstacle.h"
 #include "./queue.h"
+#include "./count.h"
 
 typedef struct game_state_type *Game_state;
 
@@ -13,7 +14,7 @@ bool game_state_init(Game_state* game_state, int delay);
 // Carrega as texturas do jogo nos TAD e no renderer.
 void game_load_textures(Game_state game_state, SDL_Renderer* renderer);
 
-void game_menu(SDL_Renderer* renderer, SDL_Window* window, bool* quit);
+void game_menu(Game_state game_state, SDL_Renderer* renderer, SDL_Window* window, bool* quit);
 
 // Move, de acordo com a velocidade, todos da esquerda para direita.
 void move_everything(Game_state game_state, SDL_Window* window);

@@ -46,10 +46,10 @@ void move_map(Map map)
   (map)->x -= VELOCITY;
 }
 
-void render_map(Map map, SDL_Renderer* renderer, SDL_Window *window)
+void render_map(Map map, SDL_Renderer* renderer, SDL_Window* window)
 {
   SDL_GL_GetDrawableSize(window, &map->width, &map->height);
-  SDL_Rect mapRect = { map->x, map->y, map->width*2, map->height };
+  SDL_Rect mapRect = { map->x, map->y, map->width * 2, map->height };
   SDL_RenderCopy(renderer, map->texture, NULL, &mapRect);
 }
 

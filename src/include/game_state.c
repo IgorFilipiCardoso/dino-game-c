@@ -6,7 +6,8 @@ struct game_state_type {
   Queue obstacles_queue;
   Obstacle obstacle;
   Character character;
-  int delay;
+  Count count;
+  double delay;
 };
 
 void game_jumping(Game_state game_state, SDL_Renderer* renderer, SDL_Window* window);
@@ -20,6 +21,7 @@ bool game_state_init(Game_state* game_state, int delay)
     map_init(&(*game_state)->map, 0, 0, WIDTH * 2, HEIGHT);
     ground_init(&(*game_state)->ground, 0, 364, 150, WIDTH * 2);
     character_init(&(*game_state)->character, 25, 300, 64, 60);
+    count_init(&(*game_state)->count);
 
     queue_init(&(*game_state)->obstacles_queue);
 
@@ -48,6 +50,7 @@ void game_load_textures(Game_state game_state, SDL_Renderer* renderer)
   set_map_textures((game_state->map), renderer, "images/map_loop2.png");
   set_ground_texture((game_state->ground), renderer, "images/grass.png");
   set_character_textures((game_state->character), renderer, "images/t_rex1.png", "images/t_rex2.png", "images/t_rex3.png");
+  set_count_texture(game_state->count, renderer, "fonts/VCR_OSD_MONO_1.001.ttf");
 
   while (!queue_is_empty(game_state->obstacles_queue)) {
     game_state->obstacle = queue_dequeue(game_state->obstacles_queue);
@@ -62,10 +65,31 @@ void game_load_textures(Game_state game_state, SDL_Renderer* renderer)
   }
 }
 
-void game_menu(SDL_Renderer* renderer, SDL_Window* window, bool* quit)
+void game_menu(Game_state game_state, SDL_Renderer* renderer, SDL_Window* window, bool* quit)
 {
   SDL_Event event;
   bool stop = false;
+  int width, height;
+
+  SDL_GL_GetDrawableSize(window, &width, &height);
+
+  TTF_Font* font = TTF_OpenFont("fonts/VCR_OSD_MONO_1.001.ttf", 128);
+  if (font == NULL)
+    printf("Fonte nao encontrada!\n");
+
+  SDL_Color White = { 255, 255, 255 };
+  SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, "Aperte 'Espaco' para iniciar!", White);
+  SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+
+  SDL_Rect Message_rect = { width / 2 - (width - (width * 0.25)) / 2, height / 2 - 20, width - (width * 0.25), 40 };
+  SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+
+  SDL_RenderPresent(renderer);
+
+  SDL_FreeSurface(surfaceMessage);
+  SDL_DestroyTexture(Message);
+
+  TTF_CloseFont(font);
 
   while (!stop && !*quit) {
     while (SDL_PollEvent(&event)) {
@@ -121,6 +145,13 @@ void game_render(Game_state game_state, SDL_Renderer* renderer, SDL_Window* wind
   render_ground(((game_state)->ground), renderer, window);
   render_character_step(((game_state)->character), renderer, window);
   render_obstacle(game_state->obstacle, renderer, window);
+  render_count(game_state->count, renderer);
+
+  if (get_count(game_state->count) % 100 == 0) {
+    printf("Delay\n");
+    game_state->delay -= 0.2;
+  }
+
 
   SDL_RenderPresent(renderer);
 
@@ -161,7 +192,6 @@ bool process_events(Game_state game_state, SDL_Window* window, SDL_Renderer* ren
                 gravity((game_state->character));
               }
             }
-            gravity((game_state->character));
             break;
           case SDL_QUIT:
             stop = true;
@@ -181,7 +211,7 @@ void game_jumping(Game_state game_state, SDL_Renderer* renderer, SDL_Window* win
 
   if (can_jump(game_state->character)) {
     for (int i = 0; i < (height / 24); i++) {
-      jump((game_state->character));
+      jump((game_state->character), height);
       move_everything(game_state, window);
       game_render(game_state, renderer, window);
     }

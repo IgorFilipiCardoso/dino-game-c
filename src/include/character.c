@@ -34,7 +34,7 @@ bool character_init(Character* character, int position_x, int position_y, int wi
 }
 
 // Faz com que o persongem pule, retorna um bool, indicando se pulou ou nao.
-void jump(Character character)
+void jump(Character character, int height)
 {
   character->y -= 10;
 }
@@ -42,14 +42,6 @@ void jump(Character character)
 bool can_jump(Character character)
 {
   return character->y == character->bottom ? true : false;
-}
-
-void fall(Character character)
-{
-  printf("Caiiii\n");
-    character->y += 10;
-    if (can_jump)
-      character->y = 300;
 }
 
 // Cria um especie de gravidade, onde o personagem e puxado para baixo.

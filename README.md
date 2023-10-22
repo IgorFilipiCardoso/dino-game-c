@@ -33,7 +33,7 @@ Para windowns:
 
 -Digite o comando no terminal:
 
--  gcc -std=c99 -o dino-game-win.exe ./src/main.c ./src/include/*c -I ./SDL2/include -L ./SDL2/lib/ -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer
+-  gcc -std=c99 -o dino-game-win.exe ./src/main.c ./src/include/*c -I ./SDL2/include -L ./SDL2/lib/ -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 
 Para Linux (Ubunto):
 
