@@ -16,7 +16,10 @@ int main(int argc, char* argv[])
 
   game_state_init(&the_game, 15);
   game_load_textures(the_game, renderer);
+  game_render(the_game, renderer, window);
 
+  game_menu(renderer, window, &stop);
+  
   while (!stop) {
     
     stop = process_events(the_game, window, renderer);

@@ -11,6 +11,8 @@ void jump(Character character);
 // Retorna se o personame pode realizar o pulo
 bool can_jump(Character character);
 
+void fall(Character character);
+
 // Cria um especie de gravidade, onde o personagem e puxado para baixo.
 void gravity(Character character);
 

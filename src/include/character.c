@@ -10,7 +10,7 @@ struct character_type {
   double velocity;
 };
 
-void render_character(Character character, SDL_Renderer* renderer, SDL_Texture** texture,  SDL_Window* window);
+void render_character(Character character, SDL_Renderer* renderer, SDL_Texture** texture, SDL_Window* window);
 void set_one_texture(SDL_Texture** texture, SDL_Renderer* renderer, char* src);
 
 bool character_init(Character* character, int position_x, int position_y, int width, int height)
@@ -44,6 +44,14 @@ bool can_jump(Character character)
   return character->y == character->bottom ? true : false;
 }
 
+void fall(Character character)
+{
+  printf("Caiiii\n");
+    character->y += 10;
+    if (can_jump)
+      character->y = 300;
+}
+
 // Cria um especie de gravidade, onde o personagem e puxado para baixo.
 void gravity(Character character)
 {
@@ -60,7 +68,7 @@ void gravity(Character character)
 }
 
 // Renderiza o personagem na tela
-void render_character_step(Character character, SDL_Renderer* renderer,  SDL_Window* window)
+void render_character_step(Character character, SDL_Renderer* renderer, SDL_Window* window)
 {
   if (character->y == character->bottom) {
     if (character->step) {
@@ -75,13 +83,13 @@ void render_character_step(Character character, SDL_Renderer* renderer,  SDL_Win
   }
 }
 
-void render_character(Character character, SDL_Renderer* renderer, SDL_Texture** texture,  SDL_Window* window)
+void render_character(Character character, SDL_Renderer* renderer, SDL_Texture** texture, SDL_Window* window)
 {
-  
+
   SDL_GL_GetDrawableSize(window, &character->width, &character->height);
 
-  character->width = (character->height*0.125);
-  character->height = (character->height*0.125);
+  character->width = (character->height * 0.125);
+  character->height = (character->height * 0.125);
 
   character->bottom = character->height * 5;
 

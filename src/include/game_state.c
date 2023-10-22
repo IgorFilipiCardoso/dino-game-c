@@ -9,6 +9,8 @@ struct game_state_type {
   int delay;
 };
 
+void game_jumping(Game_state game_state, SDL_Renderer* renderer, SDL_Window* window);
+
 bool game_state_init(Game_state* game_state, int delay)
 {
 
@@ -60,6 +62,42 @@ void game_load_textures(Game_state game_state, SDL_Renderer* renderer)
   }
 }
 
+void game_menu(SDL_Renderer* renderer, SDL_Window* window, bool* quit)
+{
+  SDL_Event event;
+  bool stop = false;
+
+  while (!stop && !*quit) {
+    while (SDL_PollEvent(&event)) {
+      switch (event.type) {
+        case SDL_WINDOWEVENT_CLOSE:
+          if (window) {
+            SDL_DestroyWindow(window);
+            window = NULL;
+            *quit = true;
+          }
+          break;
+        case SDL_KEYDOWN:
+          switch (event.key.keysym.sym) {
+            case SDLK_ESCAPE:
+              *quit = true;
+              break;
+            case SDLK_UP:
+              stop = true;
+              break;
+            case SDLK_SPACE:
+              stop = true;
+              break;
+          }
+          break;
+        case SDL_QUIT:
+          *quit = true;
+          break;
+      }
+    }
+  }
+}
+
 void move_everything(Game_state game_state, SDL_Window* window)
 {
   move_map((game_state->map));
@@ -97,6 +135,7 @@ bool process_events(Game_state game_state, SDL_Window* window, SDL_Renderer* ren
 
   SDL_GL_GetDrawableSize(window, &width, &height);
 
+
   while (SDL_PollEvent(&event)) {
     switch (event.type) {
       case SDL_WINDOWEVENT_CLOSE:
@@ -112,13 +151,17 @@ bool process_events(Game_state game_state, SDL_Window* window, SDL_Renderer* ren
             stop = true;
             break;
           case SDLK_UP:
-            if (can_jump(game_state->character)) {
-              for (int i = 0; i < (height / 24); i++) {
-                jump((game_state->character));
-                move_everything(game_state, window);
-                game_render(game_state, renderer, window);
+            game_jumping(game_state, renderer, window);
+          case SDLK_SPACE:
+            game_jumping(game_state, renderer, window);
+            break;
+          case SDLK_DOWN:
+            if (!can_jump(game_state->character)) {
+              for (int i = 0; i < (height / 80); i++) {
+                gravity((game_state->character));
               }
             }
+            gravity((game_state->character));
             break;
           case SDL_QUIT:
             stop = true;
@@ -128,6 +171,21 @@ bool process_events(Game_state game_state, SDL_Window* window, SDL_Renderer* ren
   }
 
   return stop;
+}
+
+void game_jumping(Game_state game_state, SDL_Renderer* renderer, SDL_Window* window)
+{
+  int width, height;
+
+  SDL_GL_GetDrawableSize(window, &width, &height);
+
+  if (can_jump(game_state->character)) {
+    for (int i = 0; i < (height / 24); i++) {
+      jump((game_state->character));
+      move_everything(game_state, window);
+      game_render(game_state, renderer, window);
+    }
+  }
 }
 
 bool are_colliding(Game_state game_state)
