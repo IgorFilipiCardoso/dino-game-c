@@ -148,7 +148,6 @@ void game_render(Game_state game_state, SDL_Renderer* renderer, SDL_Window* wind
   render_count(game_state->count, renderer);
 
   if (get_count(game_state->count) % 100 == 0) {
-    printf("Delay\n");
     game_state->delay -= 0.2;
   }
 
