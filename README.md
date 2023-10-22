@@ -8,6 +8,7 @@ Foi usado:
 - [SDL2](https://github.com/libsdl-org/SDL)
 - [SDL_image](https://github.com/libsdl-org/SDL_image)
 - [SDL_mixer](https://github.com/libsdl-org/SDL_mixer)
+- [SDL_ttf](https://github.com/libsdl-org/SDL_ttf)
 
 -> Como baixar SDL2 e suas bibliotecas?
 
