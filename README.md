@@ -8,6 +8,7 @@ Foi usado:
 - [SDL2](https://github.com/libsdl-org/SDL)
 - [SDL_image](https://github.com/libsdl-org/SDL_image)
 - [SDL_mixer](https://github.com/libsdl-org/SDL_mixer)
+- [SDL_ttf](https://github.com/libsdl-org/SDL_ttf)
 
 -> Como baixar SDL2 e suas bibliotecas?
 
@@ -23,11 +24,12 @@ Foi usado:
   - sudo apt-get install libsdl2-dev
   - sudo apt-get install libsdl2-image-dev
   - sudo apt-get install libsdl2-mixer-dev
+  - sudo apt-get install libsdl2-ttf-dev
 
 
 -> Como compilar?
 
-Apos ter feito o download do SDL2, SDL_image, SDL_mixer:
+Apos ter feito o download do SDL2, SDL_image, SDL_mixer e do SDL_ttf:
 
 Para windowns:
 
@@ -39,6 +41,6 @@ Para Linux (Ubunto):
 
 -Digite o comando no terminal:
 
-- gcc -o dino-game-linux ./src/main.c ./src/include/*c -I ./SDL2-linux/include -ldl -lSDL2 -lSDL2_image -lSDL2_mixer
+- gcc -o dino-game-linux ./src/main.c ./src/include/*c -I ./SDL2-linux/include -ldl -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 
 A IDE utilizada foi o VsCode no Windowns.
