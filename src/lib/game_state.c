@@ -147,9 +147,9 @@ void game_render(Game_state game_state, SDL_Renderer* renderer, SDL_Window* wind
   render_obstacle(game_state->obstacle, renderer, window);
   render_count(game_state->count, renderer);
 
-  if (get_count(game_state->count) % 100 == 0) {
-    game_state->delay -= 0.5;
-  }
+  // if (get_count(game_state->count) % 100 == 0) {
+  //   game_state->delay -= 0.2;
+  // }
 
 
   SDL_RenderPresent(renderer);
