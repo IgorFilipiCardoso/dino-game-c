@@ -1,4 +1,4 @@
-#include "../lib/obstacle.h"
+#include "../include/obstacle.h"
 
 struct obstacle_type {
   int x, y;

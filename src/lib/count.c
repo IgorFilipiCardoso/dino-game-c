@@ -1,4 +1,4 @@
-#include "../lib/count.h" 
+#include "../include/count.h" 
 
 struct count_type {
     SDL_Surface* text_surface;

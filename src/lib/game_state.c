@@ -1,4 +1,4 @@
-#include "../lib/game_state.h"
+#include "../include/game_state.h"
 
 struct game_state_type {
   Map map;
@@ -148,7 +148,7 @@ void game_render(Game_state game_state, SDL_Renderer* renderer, SDL_Window* wind
   render_count(game_state->count, renderer);
 
   if (get_count(game_state->count) % 100 == 0) {
-    game_state->delay -= 0.2;
+    game_state->delay -= 0.5;
   }
 
 

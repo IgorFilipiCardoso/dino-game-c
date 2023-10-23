@@ -1,4 +1,4 @@
-#include "../lib/map.h"
+#include "../include/map.h"
 
 struct map_type {
   int x, y;

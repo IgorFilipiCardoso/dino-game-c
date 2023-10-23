@@ -1,4 +1,4 @@
-#include "./lib/game_state.h"
+#include "./include/game_state.h"
 
 int main(int argc, char* argv[])
 {

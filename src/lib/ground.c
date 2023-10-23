@@ -1,4 +1,4 @@
-#include "../lib/ground.h"
+#include "../include/ground.h"
 
 struct ground_type {
   int x, y;

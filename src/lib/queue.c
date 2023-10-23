@@ -1,4 +1,4 @@
-#include "../lib/queue.h"
+#include "../include/queue.h"
 
 struct queue {
     Element items[QUEUE_MAX_SIZE];

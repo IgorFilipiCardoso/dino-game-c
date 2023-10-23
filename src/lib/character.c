@@ -1,4 +1,4 @@
-#include "../lib/character.h"
+#include "../include/character.h"
 
 struct character_type {
   int x, y, bottom;
